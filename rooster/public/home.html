@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Practical Excercise 7 - Part 1</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+
+        <style>
+
+            body,#vuemain {
+                padding: 0;
+                margin: 0;
+                color:#111111;
+                background-color:#eeeeee;
+            }
+            h1
+            {
+
+            color:#b38600;
+            }
+
+            .topright1 {
+  position: absolute;
+  top: 35px;
+  right: 12px;
+  font-size: 18px;
+  background-color:#b38600;
+  color: #330033;
+  width:110px;
+
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.topright2 {
+  position: absolute;
+  top: 20px;
+  right: 140px;
+  font-size: 16px;
+}
+.topright3 {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  font-size: 11px;
+  color: yellow;
+}
+.middle {
+
+}
+.button {
+  position: absolute;
+  top: 300px;
+  right: 600px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+            div, header {
+                padding: 1em;
+            }
+            .buttonstyle
+            {
+               
+                top: 400px;
+                left: 100px;
+                font-size: 20px;
+                color: black;
+
+                background-color:#b38600;
+                color: #330033;
+                width:200px;
+            }
+
+            nav .pure-menu-link {
+                color: #eeeeee;
+            }
+
+            nav .pure-menu-link:hover {
+                color: LightSlateGrey;
+            }
+
+            header,footer {
+                border-bottom: 1px solid #444444;
+                background-color: #330033;
+                color: #eeeeee;
+            }
+
+            footer {
+                border-top: 1px solid #444444;
+                background-color: LightSlateGrey;
+                color: #eeeeee;
+                text-align: center;
+                clear: both;
+            }
+
+
+            #ad img {
+                width: 24em;
+            }
+            img
+            {
+                height:30em;
+                width:75em;
+            }
+            #ad h2 {
+                text-align: center;
+            }
+
+            a{
+            color:white;
+            }
+            .adname
+            {
+                position:relative;
+                top:120;
+            }
+         
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container .btn:hover {
+  background-color: black;
+}
+html {
+  scroll-behavior: smooth;
+}
+#section1 {
+  background-color: white;
+}
+
+#section2 {
+  background-color: white;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+
+
+    </head>
+
+    <body>
+
+        <div id="vuemain" v-bind:class="{nightcolorchange:nightmode}">
+
+
+        <header class="sticky">
+            <h1>Rooster.com</h1>
+            <form action="/signup.html"><button type="submit" class="topright1">SIGN UP</button></form>
+            <p class="topright3">already applied? <a href="/login.html" color="white" >login</a></p>
+            <nav class="pure-menu pure-menu-horizontal" @mouseenter="topmenuhover=true" @mouseleave="topmenuhover=false">
+                <ul class="topright2" id="topmenu" class="pure-menu-list">
+                    <li   class="pure-menu-item" v-for="(item,index) in topmenu" @mouseenter="topmenuitem=index"><a v-bind:href="item.url" class="pure-menu-link">{{item.title}}</a></li>
+                </ul>
+
+            </nav>
+        </header>
+        <div v-if="showad">
+        <h2 align="center">{{image.name}}</h2>
+        </div>
+        <div v-if="showad"  id="ad">
+            <button class="pure-button" style="float:right;" onclick="vueinst.showad = false;">close</button>
+            <img :src="image.url" alt="" onclick="vueinst.image=ads[Math.floor((Math.random() * 3))];" />
+            <div class="middle">
+
+            <a href="https://www.amazon.com.au/s?k=amazon+echo&adgrpid=85927313206&gclid=EAIaIQobChMI3cub3-Ld6QIVxn0rCh1HngBSEAAYASAAEgJXqfD_BwE&hvadid=414099976268&hvdev=c&hvlocphy=1000422&hvnetw=g&hvqmt=e&hvrand=17213514102517523208&hvtargid=kwd-50712656950&hydadcr=5370_20363&tag=googhydr0au-22&ref=pd_sl_7wvzqsf04s_e" class="button">BUY NOW</a>
+            </div>
+        </div>
+
+
+
+        <div  id="section1" v-if="!showad" class="container">
+
+          
+  <img src="https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="Snow" style="width:100%">
+  <form action="/signup.html">
+  <button class="btn button">Get started with us</button>
+  </form>
+</div>
+
+<div class="border" v-if="!showad" align="left" id="section2">
+            <h2 font-family="Calibri">FEATURES</h2>
+
+                <button @click="showfeat1=true" class="w3-bar w3-border w3-black w3-hover-red">
+                <a href="#" class="w3-bar-item w3-button w3-mobile w3-hover-red">ROSTERING</a>
+
+                </button>
+                <div @mouseleave="showfeat1=false" v-if="showfeat1"><p >Roster.com is the simplest most powerful staff rostering tool on the market.</p><p>We focus on saving time and money. So you can get back to running a successful<br> business rather than struggling with paper work and staff communication.</p></div>
+                <button  @click="showfeat2=true"  class="w3-bar w3-border w3-black w3-hover-red">
+                <a href="#"class="w3-bar-item w3-button w3-mobile w3-hover-red">TIME & ATTENDANCE</a>
+                </button>
+                <div @mouseleave="showfeat2=false" v-if="showfeat2"><p >Roster.com is the simplest most powerful staff rostering tool on the market.</p><p>We focus on saving time and money. So you can get back to running a successful<br> business rather than struggling with paper work and staff communication.</p></div>
+                <button  @click="showfeat3=true"  class="w3-bar w3-border w3-black w3-hover-red">
+                <a href="#"class="w3-bar-item w3-button w3-mobile w3-hover-red">PAYROLL INTEGRATION</a>
+                </button>
+                <div @mouseleave="showfeat3=false" v-if="showfeat3"><p >Roster.com is the simplest most powerful staff rostering tool on the market.</p><p>We focus on saving time and money. So you can get back to running a successful<br> business rather than struggling with paper work and staff communication.</p></div>
+                <button  @click="showfeat4=true"  class="w3-bar w3-border w3-black w3-hover-red">
+                <a href="#"class="w3-bar-item w3-button w3-mobile w3-hover-red">STAFF AVAILABILITY</a>
+                </button>
+                <div @mouseleave="showfeat4=false" v-if="showfeat4"><p >Roster.com is the simplest most powerful staff rostering tool on the market.</p><p>We focus on saving time and money. So you can get back to running a successful<br> business rather than struggling with paper work and staff communication.</p></div>
+                <button  @click="showfeat5=true" class="w3-bar w3-border w3-black w3-hover-red">
+                <a href="#"class="w3-bar-item w3-button w3-mobile w3-hover-red">SHIFT PLANNING</a>
+                </button>
+                <div @mouseleave="showfeat5=false" v-if="showfeat5"><p >Roster.com is the simplest most powerful staff rostering tool on the market.</p><p>We focus on saving time and money. So you can get back to running a successful<br> business rather than struggling with paper work and staff communication.</p></div>
+                <button  @click="showfeat6=true" class="w3-bar w3-border w3-black w3-hover-red">
+                <a href="#"class="w3-bar-item w3-button w3-mobile w3-hover-red">LEAVE REQUEST FORMS</a>
+                </button>
+                <div @mouseleave="showfeat6=false" v-if="showfeat6"><p >Roster.com is the simplest most powerful staff rostering tool on the market.</p><p>We focus on saving time and money. So you can get back to running a successful<br> business rather than struggling with paper work and staff communication.</p></div>
+
+
+
+
+            <button position="relative" class="pure-button">LOGIN</button>
+
+            </div>
+
+     
+
+    </div>
+
+        <script>
+
+var array;
+var topmenu = [
+
+{ title:'Home', url:'#section1', submenus: [] },
+{ title:'Features', url:'#section2',
+},
+{ title:'Contact Us',   url:'/contact.html',
+}
+];
+/*
+Stores (task 1.8):
+
+{ name:'Adelaide City',  address:'45 Florabunda Lane, Adelaide, 5000', counter: 0, img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/11_Gloddaeth_Street%2C_Llandudno_shop_front.jpg/320px-11_Gloddaeth_Street%2C_Llandudno_shop_front.jpg' },
+{ name:'Steelton South', address:'77 Weigall Avenue, Steelton, 5413',  counter: 0, img:'https://upload.wikimedia.org/wikipedia/commons/4/42/Well-shop-front.jpg' },
+{ name:'Milton',         address:'33 McGregor Street, Milton, 5880',   counter: 0, img:'https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Greggs_store_front.JPG/320px-Greggs_store_front.JPG' }
+
+*/
+
+var ads = [
+    { name:'Amazon Echo', url:'https://www.advertgallery.com/wp-content/uploads/2018/02/introducing-amazon-echo-just-ask-alexa-for-music-ad-times-of-india-delhi-16-02-2018.png' },
+    { name:'The Fulton Lewis Show', url:'https://upload.wikimedia.org/wikipedia/commons/c/ca/Mutual_Broadcasting_System_-_Fulton_Lewis_Radio_1940s-1950s_Commercial.jpg' },
+    { name:'Clarks Shoes', url:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Clarks_US_vintage_Desert_Boot_advert.jpg/433px-Clarks_US_vintage_Desert_Boot_advert.jpg' }
+];
+
+
+var vueinst = new Vue({
+
+  el: '#vuemain',
+  data: {
+    text: 'Pretty good.',
+    image:ads[0],
+    showad:true,
+    nightmode: false,
+    topmenu:topmenu,
+    topmenuitem:0,
+    topmenuhover:false,
+  
+    showfeat1:false,
+    showfeat2:false,
+    showfeat3:false,
+    showfeat4:false,
+    showfeat5:false,
+    showfeat6:false,
+    showman:false,
+  
+
+
+  },
+
+
+});
+
+
+
+
+
+
+
+
+
+        </script>
+
+    </body>
+
+</html>

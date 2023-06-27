@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Practical Excercise 7 - Part 1</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+       <link rel="stylesheet" href="/stylesheets/style.css">
+
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+
+            
+          
+
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+                <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="733296930358-ej3rj0j2ej9soqcrqlk5ckg3j06gsruj.apps.googleusercontent.com">
+
+
+
+
+    </head>
+
+    <body>
+
+        <div id="vuemain">
+
+        <header>
+            <h1>Rooster.com</h1>
+
+            <nav class="pure-menu pure-menu-horizontal" @mouseenter="topmenuhover=true" @mouseleave="topmenuhover=false">
+            
+
+            </nav>
+        </header>
+
+
+
+
+
+
+
+            <div class="border"class="w3-bar w3-border w3-black w3-hover-red" id="items">
+                <button @click="em(),schedule=true;unavailability=false;egroup=false;tstatus=false;unavatable=false;ttable=false;tstatus=false;asure=false" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-briefcase' style='font-size:20px;color:black'></i> <a >SCHEDULE</a>
+                </button>
+                <button @click="schedule=false;unavailability=true;egroup=false;tstatus=false;unavatable=false;ttable=false;tstatus=false;asure=false" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-address-book' style='font-size:20px;color:black'></i> <a >UNAVAILABILITY</a>
+                </button>
+                <button @click="schedule=false;unavailability=false;egroup=false;tstatus=false;unavatable=false;ttable=false;tstatus=true;asure=false" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-address-book' style='font-size:20px;color:black'></i> <a >TASK STATUS</a>
+                </button>
+                <button @click="gp();schedule=false;unavailability=false;egroup=true;tstatus=true;unavatable=false;ttable=false;tstatus=false;asure=false" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-address-book' style='font-size:20px;color:black'></i> <a >GROUP TASKS</a>
+                </button>
+                <input size="17"id="mandemployee" class="w3-text round" placeholder="Enter EmployeeID">
+                <button  @click="myfunction();showfeat1=true" class="w3-bar-item w3-button w3-mobile w3-hover-red w3-right" >
+    
+                <a href="#" onclick="show();">LOGOUT</a>
+
+                </button>
+
+
+            </div>
+            <p>Please make sure to fill Employee Id in top right text area</p>
+            
+            <div v-if="schedule">
+            
+                <table class="position" class="w3-table">
+                    <tr class="w3-border">
+
+                        <th><pre>      TaskID      </pre></th>
+                        <th><pre>      Duration      </pre> </th>
+                        <th><pre>      StartTime     </pre> </th>
+                        <th><pre>      Endtime     </pre> </th>
+                    </tr>
+                    <tr v-for="jagg in jaggs">
+
+                        <td> {{jagg.TaskID}}</td>
+                        <td> {{jagg.Taskname}}</td>
+                        <td> {{jagg.StartTime}}</td>
+                        <td> {{jagg.EndTime}}</td>
+                    </tr>
+
+                </table>
+                
+            </div>
+            
+<div class="textbox" v-if="unavailability">
+    <label for="taskdate">Task date:</label>
+  <input id="start" type="datetime-local"  name="taskdate">
+  <input id="end" type="datetime-local"  name="taskdate">
+<input id="name" placeholder="Display name" type="text">
+<button v-on:click="avaa();unavatable=true;">Show</button>
+</div>
+<div v-if="unavatable">
+ <table class="w3-table">
+    <tr class="w3-border">
+
+      <th><pre>      Employee     </pre></th>
+        <th><pre>      StartTime     </pre> </th>
+          <th><pre>      Endtime     </pre> </th>
+    </tr>
+    <tr v-for="ram in rams">
+
+
+      <td> {{ram.Eusername}}</td>
+         <td> {{ram.StartT}}</td>
+            <td> {{ram.EndT}}</td>
+    </tr>
+
+    </table>
+
+</div>
+
+<div v-if="tstatus">
+    <input id="tID" placeholder="Enter Task Id">
+    <button v-on:click="stat();ttable=true;">SHOW TASK</button>
+</div>
+<div v-if="ttable">
+    
+    <table class="w3-table" >
+
+                        <tr class="w3-border">
+
+                            <th><pre>      EmployeeID      </pre> </th>
+                            <th><pre>      TaskID      </pre> </th>
+                            <th><pre>      Task Name      </pre> </th>
+                            <th><pre>      StartTime     </pre> </th>
+                            <th><pre>      Endtime     </pre> </th>
+                            <th><pre>      Status     </pre> </th>
+
+                        </tr>
+
+                        <tr v-for="ta in taskstat">
+                            <td>
+                                {{ta.Eusername}}
+                            </td>
+                            <td>
+                                {{ta.TaskID}}
+                            </td>
+                            <td>
+                                {{ta.Taskname}}
+                            </td>
+                            <td>
+                                {{ta.StartTime}}
+                            </td>
+                            <td>
+                                {{ta.EndTime}}
+                            </td>
+                            <td>
+                                <input v-if="sure" id="message" placeholder="TASK STATUS">
+                            </td>
+                            <td>
+                                <button v-on:click="updstat();asure=true;sure=false;" >SUBMIT</button>
+                            </td>
+
+                        </tr>
+                        <p v-if="asure"> Task successfully updated</p>
+
+                    </table>
+    
+</div>
+
+<div v-if="egroup">
+    <table class="w3-table" >
+
+                        <tr class="w3-border">
+
+                            <th><pre>      EmployeeID      </pre> </th>
+                            <th><pre>      GroupID      </pre> </th>
+                            <th><pre>      Description      </pre> </th>
+                            <th><pre>      StartTime     </pre> </th>
+                            <th><pre>      Endtime     </pre> </th>
+
+                        </tr>
+
+                        <tr v-for="ggg in gggs">
+                            <td>
+                                {{ggg.Eusername}}
+                            </td>
+                            <td>
+                                {{ggg.GroupID}}
+                            </td>
+                            <td>
+                                {{ggg.Description}}
+                            </td>
+                            <td>
+                                {{ggg.StartTIME}}
+                            </td>
+                            <td>
+                                {{ggg.EndTIME}}
+                            </td>
+
+                        </tr>
+
+                    </table>
+    
+    
+</div>
+</div>
+        <script>
+
+function myfunction() {
+
+  window.location.href =("https://790a53dc-a3b3-4901-a895-542c1e9308fe-ide.cs50.xyz/home.html");
+}
+
+var topmenu =[
+
+{ title:'Home',         url:'/home.html' },
+{ title:'Features',        url:'/feature.html' },
+{ title:'Contact Us',   url:'/contact' }
+];
+var actions =[
+
+{ title:'ADD EMPLOYEE',         url:'/home.html' },
+{ title:'ADD EVENT',        url:'/feature.html' },
+{ title:'ADD NEWS',    }
+];
+
+var array;
+
+
+
+
+var ads = [
+    { name:'Amazon Echo', url:'https://www.advertgallery.com/wp-content/uploads/2018/02/introducing-amazon-echo-just-ask-alexa-for-music-ad-times-of-india-delhi-16-02-2018.png' },
+    { name:'The Fulton Lewis Show', url:'https://upload.wikimedia.org/wikipedia/commons/c/ca/Mutual_Broadcasting_System_-_Fulton_Lewis_Radio_1940s-1950s_Commercial.jpg' },
+    { name:'Clarks Shoes', url:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Clarks_US_vintage_Desert_Boot_advert.jpg/433px-Clarks_US_vintage_Desert_Boot_advert.jpg' }
+];
+
+
+var vueinst = new Vue({
+
+  el: '#vuemain',
+  data: {
+    text: 'Pretty good.',
+    image:ads[0],
+    showemp:false,
+    showbox:false,
+    showleave:false,
+    nightmode: false,
+    topmenu:topmenu,
+    groups:[],
+    jaggs:[],
+    rams:[],
+    gggs:[],
+    taskstat:[],
+    topmenuitem:0,
+    topmenuhover:false,
+    uu:false,
+    schedule:false,
+    unavailability:true,
+    egroup:false,
+    status:false,
+    tstatus:false,
+    ttable:false,
+    sure:true,
+    asure:false,
+  },
+  methods:{
+    em :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.jaggs= JSON.parse(xhttp.responseText);
+                document.getElementById("error").innerHTML=this.responseText;
+            }
+        };
+        xhttp.open("POST", "/show", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({ Eusername:document.getElementById('mandemployee').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+		avaa: function(){
+		//console.log("dsaasda");
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("good");
+                vueinst.rams=JSON.parse(xhttp.responseText);
+                console.log(this.responseText);
+
+            }
+        };
+        xhttp.open("POST", "/ava", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         console.log(this.responseText);
+        xhttp.send(JSON.stringify({StartT: document.getElementById('start').value,EndT:document.getElementById('end').value,Eusername:document.getElementById('mandemployee').value,name:document.getElementById('name').value}));
+         console.log(this.responseText);
+
+		// in success handler redirect to employee.html
+
+	},
+	
+	gp: function(){
+		//console.log("dsaasda");
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("good");
+                vueinst.gggs=JSON.parse(xhttp.responseText);
+                console.log(this.responseText);
+
+            }
+        };
+        xhttp.open("POST", "/egroup", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         console.log(this.responseText);
+        xhttp.send(JSON.stringify({Eusername: document.getElementById('mandemployee').value}));
+         console.log(this.responseText);
+
+		// in success handler redirect to employee.html
+
+	},
+	
+	stat :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.taskstat= JSON.parse(xhttp.responseText);
+                document.getElementById("error").innerHTML=this.responseText;
+            }
+        };
+        xhttp.open("POST", "/etaskstatus", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({ TaskID:document.getElementById('tID').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	
+	updstat :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                
+            }
+        };
+        xhttp.open("POST", "/updstatus", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({ TaskID:document.getElementById('tID').value,Status:document.getElementById("message") }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+
+
+
+
+  }
+
+});
+</script>
+<script>
+function show(){
+    gapi.load('auth2', function() {
+        gapi.auth2.init().then(function(){
+             signOut();
+
+        });
+
+    });
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+       window.location.href = "/home.html";
+    });
+ }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+    </body>
+
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Practical Excercise 7 - Part 1</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+       <link rel="stylesheet" href="/stylesheets/style.css">
+
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    </head>
+
+    <body>
+
+        <div id="vuemain">
+
+            <header>
+                
+                <h1 class="fab"> Rooster.com</h1>
+
+                <nav class="pure-menu pure-menu-horizontal" @mouseenter="topmenuhover=true" @mouseleave="topmenuhover=false">
+                
+                          
+                   
+
+                </nav>
+            </header>
+
+
+
+
+
+
+
+            <div class="border round"class="w3-bar w3-border w3-black w3-hover-red">
+
+                <button @click="email=false;dashboard=true;grouptask=false;availability=false;taskstatus=false;updatedelete=false;showcurrenttask=false;showalltask=false;;showtaskstatus=false;updateoptions=false;showupdtable=false;" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-briefcase' style='font-size:20px;color:black'></i> <a>DASHBOARD</a>
+                </button>
+                <button @click="email=false;dashboard=false;grouptask=false;availability=true;taskstatus=false;updatedelete=false;showcurrenttask=false;showalltask=false;;showtaskstatus=false;updateoptions=false;showupdtable=false;" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-address-book' style='font-size:20px;color:black'></i> <a >AVAILABILITY</a>
+                </button>
+                <button @click="email=false;dashboard=false;grouptask=true;availability=false;taskstatus=false;updatedelete=false;showcurrenttask=false;showalltask=false;;showtaskstatus=false;updateoptions=false;showupdtable=false;" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-briefcase' style='font-size:20px;color:black'></i> <a >GROUP TASKS</a>
+                </button>
+                <button @click="email=false;dashboard=false;grouptask=false;availability=false;taskstatus=true;updatedelete=false;showcurrenttask=false;showalltask=false;;showtaskstatus=false;updateoptions=false;showupdtable=false;" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class='fas fa-address-book' style='font-size:20px;color:black'></i> <a >TASK STATUS</a>
+                </button>
+                <button @click="email=false;dashboard=false;grouptask=false;availability=false;taskstatus=false;updatedelete=true;showcurrenttask=false;showalltask=false;;showtaskstatus=false;updateoptions=false;showupdtable=false;" class="w3-bar-item w3-button w3-mobile w3-hover-red" >
+                <i class="fa fa-upload" style='font-size:20px;color:black'></i>
+                <a >UPDATE/DELETE</a>
+                </button>
+                <button class="w3-button w3-margin"><i class='far fa-paper-plane' style='font-size:24px' v-on:click="email=true;dashboard=false;grouptask=false;availability=false;taskstatus=false;updatedelete=false;showcurrenttask=false;showalltask=false;;showtaskstatus=false;updateoptions=false;showupdtable=false;"></i> EMAIL</button>
+                <button onclick="myfunction()"  class="w3-bar-item w3-button w3-black round w3-mobile w3-hover-red " >
+                LOG OUT
+                </button>
+                
+               
+
+            </div>
+            
+                <div v-if="email">
+                    <input id="email" placeholder="email">
+                    <input id="empID" placeholder="EmployeeID">
+                    <button onclick="mail()">SEND MAIL</button>
+                    
+                </div>
+
+                <div v-if="dashboard">
+
+                    <div class="w3-dropdown-hover">
+                        <button  v-on:click="showemp=true;" class="w3-button w3-black w3-margin">Add Employee</button>
+                        <input  v-if="showemp" placeholder="Employee ID" id="employee">
+
+                    </div>
+
+                    </br>
+                    </br>
+                    </br>
+
+                    <div>
+                        <button v-on:click="emp();showcurrenttask=true;showalltask=false;" class="w3-button w3-black w3-margin"><i class='fas fa-plus'></i>Add Task</button>
+                        <button v-on:click="empo();showcurrenttask=false;showalltask=true;" class="w3-button w3-black w3-margin"><i class='fas fa-plus'></i>Show All Tasks</button>
+
+                        <input id ="taskname"name="taskname" placeholder="Task name">
+                        <input id ="taskID"name="taskID" placeholder="TaskID">
+                        <label for="taskdate">Task date:</label>
+                        <input type="datetime-local" id="taskdate" name="taskdate">
+                        <input type="datetime-local" id="taskdate2" name="taskdate">
+
+                    </div>
+
+
+
+
+
+                </div>
+                    <div v-if="showcurrenttask" >
+                        <table class="w3-table">
+                            <h2><i class='far fa-check-circle' style='font-size:36px'></i>Task Added</h2>
+                            <tr class="w3-border">
+                                <th><pre>      Eusername      </pre> </th>
+                                <th><pre>      TaskID      </pre></th>
+                                <th><pre>      Duration      </pre> </th>
+                                <th><pre>      StartTime     </pre> </th>
+                                <th><pre>      Endtime     </pre> </th>
+                                <th><pre>      Status     </pre> </th>
+                            </tr>
+                            <tr v-for="task in tasks">
+                                <td> {{task.Eusername}} </td>
+                                <td> {{task.TaskID}}</td>
+                                <td> {{task.Taskname}}</td>
+                                <td> {{task.StartTime}}</td>
+                                <td> {{task.EndTime}}</td>
+                                <td> {{task.Status}}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div v-if="showalltask" >
+                        <table class="w3-table">
+                            <h2>All Tasks</h2>
+                            <tr class="w3-border">
+                                <th><pre>      Eusername      </pre> </th>
+                                <th><pre>      TaskID      </pre></th>
+                                <th><pre>      Duration      </pre> </th>
+                                <th><pre>      StartTime     </pre> </th>
+                                <th><pre>      Endtime     </pre> </th>
+                                <th><pre>      Status     </pre> </th>
+                            </tr>
+                            <tr v-for="alltask in showtask">
+                                <td> {{alltask.Eusername}} </td>
+                                <td> {{alltask.TaskID}}</td>
+                                <td> {{alltask.Taskname}}</td>
+                                <td> {{alltask.StartTime}}</td>
+                                <td> {{alltask.EndTime}}</td>
+                                <td> {{alltask.Status}}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                <div v-if="availability">
+                    <div class="textbox">
+
+                    <input id="employe" type=text placeholder="Enter EmployeeID">
+                    <button class="w3-black w3-bar-item w3-button w3-mobile w3-hover-red" v-on:click="ava(),av1(),showavailability=true">SHOW AVAILABILITY</button>
+
+
+
+                </div>
+
+                <div v-if="showavailability">
+                    <h2 id="name">{{name}}</h2>
+                    <p>is unavailable from : </p>
+                    <table class="w3-table" >
+                        <tr class="w3-border">
+                            <th><pre>    EmployeeID  </pre> </th>
+                            <th><pre>    StartTime   </pre> </th>
+                            <th><pre>    Endtime     </pre> </th>
+                        </tr>
+
+                        <tr v-for="hu in hus">
+                            <td>
+                                {{hu.Eusername}}
+                            </td>
+                            <td>
+                                {{hu.StartT}}
+                            </td>
+                            <td>
+                                {{hu.EndT}}
+                            </td>
+                        </tr>
+
+                    </table>
+                    </div>
+
+
+                </div>
+
+                <div class="textbox" v-if="grouptask">
+
+                    <div class="dropdown round">
+                            <button class="dropbtn round">No. of Employees</button>
+                            <div class="round dropdown-content">
+                                <option class="w3-hover-red round" v-on:click="sus = true;sus2=false;sus3=false;">1</option>
+                                <option class="w3-hover-red round" v-on:click="sus = true;sus2=true;sus3=false;">2</button>
+                                <option class="w3-hover-red round" v-on:click="sus = true;sus2=true;sus3=true;">3</option>
+                            </div>
+                    </div>
+
+                    <input id="employ" v-if="sus" type="text" placeholder="employee">
+                    <input id="employ" v-if="sus2" type="text" placeholder="employee">
+                    <input id="employ" v-if="sus3" type="text" placeholder="employee">
+                    <input id ="D" type=text placeholder="Group Task Description">
+                    <input id="gID"type="text" placeholder="Enter Group ID">
+                    <label><b>Start Time: </b></label><input type="datetime-local" id="St"  min="2018-06-07" max="2050-06-14">
+                    <label><b>End Time: </b></label><input type="datetime-local" id="Et" min="2018-06-07" max="2050-06-14">
+                    <button class="w3-button round w3-black" v-on:click="g1(),g2(),showgrouptask=true">Group task</button>
+                    </div>
+                    <div v-if="showgrouptask">
+                    <table class="w3-table" >
+
+                        <tr class="w3-border">
+
+                            <th><pre>      EmployeeID      </pre> </th>
+                            <th><pre>      GroupID      </pre> </th>
+                            <th><pre>      Description      </pre> </th>
+                            <th><pre>      StartTime     </pre> </th>
+                            <th><pre>      Endtime     </pre> </th>
+
+                        </tr>
+
+                        <tr v-for="View in Views">
+                            <td>
+                                {{View.Eusername}}
+                            </td>
+                            <td>
+                                {{View.GroupID}}
+                            </td>
+                            <td>
+                                {{View.Description}}
+                            </td>
+                            <td>
+                                {{View.StartTIME}}
+                            </td>
+                            <td>
+                                {{View.EndTIME}}
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+            </div>
+            <div class="textbox" v-if="taskstatus">
+
+                    <input id="tID" type="text" placeholder="Enter Task ID">
+                    <button class="w3-button w3-black w3-margin" v-on:click="ts();showtaskstatus=true;">CHECK STATUS</button>
+
+            </div>
+
+            <div v-if="showtaskstatus">
+                <table class="w3-table" >
+
+                        <tr class="w3-border">
+
+                            <th><pre>      EmployeeID      </pre> </th>
+                            <th><pre>      TaskID      </pre> </th>
+                            <th><pre>      Task Name      </pre> </th>
+                            <th><pre>      StartTime     </pre> </th>
+                            <th><pre>      Endtime     </pre> </th>
+                            <th><pre>      Status     </pre> </th>
+
+                        </tr>
+
+                        <tr v-for="taskstat in taskstatu">
+                            <td>
+                                {{taskstat.Eusername}}
+                            </td>
+                            <td>
+                                {{taskstat.TaskID}}
+                            </td>
+                            <td>
+                                {{taskstat.Taskname}}
+                            </td>
+                            <td>
+                                {{taskstat.StartTime}}
+                            </td>
+                            <td>
+                                {{taskstat.EndTime}}
+                            </td>
+                            <td>
+                                {{taskstat.Status}}
+                            </td>
+
+                        </tr>
+
+                    </table>
+            </div>
+            <div class="textbox" v-if="updatedelete">
+                    <h2>Update/Delete Individual Task</h2>
+                    </br>
+                    <input id="tID" type="text" placeholder="Enter Task ID">
+                    <button class="w3-button w3-black w3-margin" v-on:click="updateoptions=true;">UPDATE</button>
+                    <button class="w3-button w3-black w3-margin" v-on:click="del();showupdtable=false;">DELETE</button>
+                    <div v-if="updateoptions" class="dropdown round">
+                            <button class="dropbtn round">Choose Update</button>
+                            <div class="round dropdown-content">
+                                <option class="w3-hover-red round" v-on:click="opt1=true;opt2=false;opt3=false;opt4=false;">Task Name</option>
+                                <option class="w3-hover-red round" v-on:click="opt1=false;opt2=true;opt3=false;opt4=false;">Start Time</button>
+                                <option class="w3-hover-red round" v-on:click="opt1=false;opt2=false;opt3=true;opt4=false;">End Time</option>
+                                <option class="w3-hover-red round" v-on:click="opt1=false;opt2=false;opt3=false;opt4=true;">Employee ID</option>
+                            </div>
+
+                                <input id="4" v-if="opt1" placeholder="New Task Name">
+                                <input id="3" v-if="opt2" type="datetime-local" placeholder="New Start Time">
+                                <input id="2" v-if="opt3" type="datetime-local" placeholder="New End Time">
+                                <input id="1" v-if="opt4" type="text" placeholder="New Employee ID">
+                                <button class="w3-button w3-black w3-margin" v-if="opt1" v-on:click="op1();ts();showupdtable=true">UPDATE</button>
+                                <button class="w3-button w3-black w3-margin" v-if="opt2" v-on:click="op2();ts();showupdtable=true">UPDATE</button>
+                                <button class="w3-button w3-black w3-margin" v-if="opt3" v-on:click="op3();ts();showupdtable=true">UPDATE</button>
+                                <button class="w3-button w3-black w3-margin" v-if="opt4" v-on:click="op4();ts();showupdtable=true">UPDATE</button>
+
+
+
+                    </div>
+            <p id="delete"></p>
+            </div>
+
+            <div v-if="showupdtable">showupdtable=false;
+                <table class="w3-table" >
+
+                        <tr class="w3-border">
+
+                            <th><pre>      EmployeeID      </pre> </th>
+                            <th><pre>      TaskID      </pre> </th>
+                            <th><pre>      Task Name      </pre> </th>
+                            <th><pre>      StartTime     </pre> </th>
+                            <th><pre>      Endtime     </pre> </th>
+                            <th><pre>      Status     </pre> </th>
+
+                        </tr>
+
+                        <tr v-for="upd in updtable">
+                            <td>
+                                {{upd.Eusername}}
+                            </td>
+                            <td>
+                                {{upd.TaskID}}
+                            </td>
+                            <td>
+                                {{upd.Taskname}}
+                            </td>
+                            <td>
+                                {{upd.StartTime}}
+                            </td>
+                            <td>
+                                {{upd.EndTime}}
+                            </td>
+                            <td>
+                                {{upd.Status}}
+                            </td>
+
+                        </tr>
+
+                    </table>
+            </div>
+
+
+        </div>
+
+        <script>
+        function myfunction() {
+
+  window.location.href =("https://790a53dc-a3b3-4901-a895-542c1e9308fe-ide.cs50.xyz/home.html");
+}
+
+
+var topmenu =[
+
+{ title:'Home',         url:'/home.html' },
+{ title:'Features',        url:'/feature.html' },
+{ title:'Contact Us',   url:'/contact' }
+];
+var actions =[
+
+{ title:'ADD EMPLOYEE',         url:'/home.html' },
+{ title:'ADD EVENT',        url:'/feature.html' },
+{ title:'ADD NEWS',    }
+];
+
+var array;
+
+
+
+
+var ads = [
+    { name:'Amazon Echo', url:'https://www.advertgallery.com/wp-content/uploads/2018/02/introducing-amazon-echo-just-ask-alexa-for-music-ad-times-of-india-delhi-16-02-2018.png' },
+    { name:'The Fulton Lewis Show', url:'https://upload.wikimedia.org/wikipedia/commons/c/ca/Mutual_Broadcasting_System_-_Fulton_Lewis_Radio_1940s-1950s_Commercial.jpg' },
+    { name:'Clarks Shoes', url:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Clarks_US_vintage_Desert_Boot_advert.jpg/433px-Clarks_US_vintage_Desert_Boot_advert.jpg' }
+];
+
+
+var vueinst = new Vue({
+
+  el: '#vuemain',
+  data: {
+    text: 'Pretty good.',
+    image:ads[0],
+    showemp:false,
+    showman:false,
+    nightmode: false,
+    topmenu:topmenu,
+    tasks:[],
+    Views:[],
+    taskstatu:[],
+    employs:[],
+    showtask:[],
+    updtable:[],
+    topmenuitem:0,
+    topmenuhover:false,
+    uu:false,
+    hus:[],
+    app:["iuihiuh"],
+    showemplist:false,
+    showtasktable:false,
+    dashboard:false,
+    grouptask:false,
+    availability:false,
+    taskstatus:false,
+    updatedelete:false,
+    showavailability:false,
+    showgrouptask:false,
+    showcurrenttask:false,
+    showalltask:false,
+    showtaskstatus:false,
+    showupdtable:false,
+    updateoptions:false,
+    name:'',
+    sus:false,
+    sus2:false,
+    sus3:false,
+    sus4:false,
+    opt1:false,
+    opt2:false,
+    opt3:false,
+    opt4:false,
+    email:false,
+  },
+  methods:{
+    emp :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.tasks= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/addtask", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({ TaskID: document.getElementById('taskID').value,Eusername:document.getElementById('employee').value,Taskname:document.getElementById('taskname').value,EndTime:document.getElementById('taskdate').value,StartTime:document.getElementById('taskdate2').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+    empo :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.showtask= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/showtask", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({Eusername:document.getElementById('employee').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	ts :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.taskstatu= JSON.parse(xhttp.responseText);
+                vueinst.updtable= JSON.parse(xhttp.responseText);
+                document.getElementById("delete").innerHTML="This task has been successfully Updated";
+            }
+        };
+        xhttp.open("POST", "/taskstatus", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({TaskID:document.getElementById('tID').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	del :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                document.getElementById("delete").innerHTML="This task has been successfully deleted";
+                
+            }
+        };
+        xhttp.open("POST", "/deletetask", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({TaskID:document.getElementById('tID').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	ava: function(){
+		//console.log("dsaasda");
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("good");
+                vueinst.hus=JSON.parse(xhttp.responseText);
+                console.log(this.responseText);
+
+            }
+        };
+        xhttp.open("POST", "/av", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         console.log(this.responseText);
+        xhttp.send(JSON.stringify({Eusername:document.getElementById('employe').value}));
+         console.log(this.responseText);
+
+		// in success handler redirect to employee.html
+
+	},
+	av1: function(){
+		//console.log("dsaasda");
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("good");
+                vueinst.name=JSON.parse(xhttp.responseText);
+                console.log(this.responseText);
+
+            }
+        };
+        xhttp.open("POST", "/avail", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         console.log(this.responseText);
+        xhttp.send(JSON.stringify({Eusername:document.getElementById('employe').value}));
+         console.log(this.responseText);
+
+		// in success handler redirect to employee.html
+
+	},
+
+	g1 :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.Views= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/showgrouptask", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({Eusername:document.getElementById('employ').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	g2 :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+
+            }
+        };
+        xhttp.open("POST", "/addgrouptask", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({GroupID:document.getElementById('gID').value,Description:document.getElementById('D').value,Eusername:document.getElementById('employ').value,StartTIME:document.getElementById('St').value,EndTIME:document.getElementById('Et').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	op1 :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.taskstatu= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/updateoption1", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({TaskID:document.getElementById('tID').value,Taskname:document.getElementById('4').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	op2 :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.taskstatu= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/updateoption2", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({TaskID:document.getElementById('tID').value,StartTime:document.getElementById('3').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	op3 :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.taskstatu= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/updateoption3", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({TaskID:document.getElementById('tID').value,EndTime:document.getElementById('2').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+	op4 :function(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                vueinst.taskstatu= JSON.parse(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "/updateoption4", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+         xhttp.send(JSON.stringify({TaskID:document.getElementById('tID').value,Eusername:document.getElementById('1').value }));
+
+
+		// in success handler redirect to employee.html
+
+	},
+
+
+
+
+  }
+
+});
+
+
+
+
+
+
+ function mail(){
+		//console.log("dsaasda");
+		// http call
+         var xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "/email", true);
+
+          xhttp.setRequestHeader("Content-type", "application/json");
+          xhttp.send(JSON.stringify({Email: document.getElementById('email').value,Eusername :document.getElementById('empID').value}));
+
+
+		// in success handler redirect to employee.html
+
+	}
+
+
+        </script>
+
+    </body>
+
+</html>

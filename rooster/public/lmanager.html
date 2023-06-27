@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Practical Excercise 7 - Part 1</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+
+        <style>
+
+            body,#vuemain {
+                padding: 0;
+                margin: 0;
+                color:#111111;
+                background-color:#eeeeee;
+            }
+            h1
+            {
+
+            color:#b38600;
+            }
+            .topright1 {
+  position: absolute;
+  top: 35px;
+  right: 12px;
+  font-size: 18px;
+  background-color:#b38600;
+  color: #330033;
+  width:110px;
+
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.topright2 {
+  position: absolute;
+  top: 20px;
+  right: 140px;
+  font-size: 16px;
+}
+.topright3 {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  font-size: 11px;
+  color: yellow;
+}
+.middle {
+  position: absolute;
+  top: 200px;
+  right: 100px;
+  font-size: 25px;
+  color: black;
+}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.border
+            {
+                border-style:solid;
+                border-width:50px;
+                border-color:#b38600;
+            }
+            div, header {
+                padding: 1em;
+            }
+
+            nav .pure-menu-link {
+                color: #eeeeee;
+            }
+
+            nav .pure-menu-link:hover {
+                color: LightSlateGrey;
+            }
+
+            header,footer {
+                border-bottom: 1px solid #444444;
+                background-color: #330033;
+                color: #eeeeee;
+            }
+
+            footer {
+                border-top: 1px solid #444444;
+                background-color: LightSlateGrey;
+                color: #eeeeee;
+                text-align: center;
+                clear: both;
+            }
+            #vuemain.nightcolorchange
+            {
+                background-color: #ffff00;
+            }
+
+            #ad img {
+                width: 24em;
+            }
+
+            #ad h2 {
+                text-align: center;
+            }
+
+            #stores img {
+                width: 6em;
+                float: right;
+                margin-left: 1em;
+            }
+
+            #items img {
+                width: 12em;
+                float: left;
+                margin-right: 1em;
+            }
+            a{
+            color:white;
+            }
+            .buttonstyle
+            {
+                font-size: 18px;
+  background-color:#b38600;
+  color: #330033;
+  width:110px;
+            }
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    </head>
+
+    <body>
+
+        <div id="vuemain">
+
+        <header>
+            <h1>Rooster.com</h1>
+
+            <nav class="pure-menu pure-menu-horizontal" @mouseenter="topmenuhover=true" @mouseleave="topmenuhover=false">
+                <ul class="topright2" id="topmenu" class="pure-menu-list">
+                    <li   class="pure-menu-item" v-for="(item,index) in topmenu" @mouseenter="topmenuitem=index"><a v-bind:href="item.url" class="pure-menu-link">{{item.title}}</a></li>
+                </ul>
+
+            </nav>
+        </header>
+
+
+
+
+
+
+
+            <div class="border" align="center" id="items">
+            <h2 font-family="Calibri">LOGIN</h2>
+
+
+
+                    <form method="POST" onsubmit="logino()">
+            <p>Username <input id="username" size="12" type="text" /></p>
+            <p>Password <input id="password" size="12" type="password" /></p>
+            <p id="disp"></p>
+            <input type="submit" position="relative" class="pure-button" name="LOGIN">
+                </form>
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+        <script>
+        function logino(){
+		//e.preventDefault()
+		// http call
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.href = "/manager.html";
+                
+            }
+        };
+        xhttp.open("POST", "/lmanager.html", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({Musername: document.getElementById('username').value,password: document.getElementById('password').value}));
+
+		// in success handler redirect to employee.html
+
+	}
+                           
+
+
+
+var topmenu =[
+
+{ title:'Home',         url:'/home.html' },
+{ title:'Features',        url:'/feature.html' },
+{ title:'Contact Us',   url:'/contact' }
+];
+
+var array;
+
+
+
+
+var ads = [
+    { name:'Amazon Echo', url:'https://www.advertgallery.com/wp-content/uploads/2018/02/introducing-amazon-echo-just-ask-alexa-for-music-ad-times-of-india-delhi-16-02-2018.png' },
+    ];
+
+
+var vueinst = new Vue({
+
+  el: '#vuemain',
+  data: {
+    text: 'Pretty good.',
+    image:ads[0],
+    showemp:false,
+    showman:false,
+    nightmode: false,
+    topmenu:topmenu,
+    topmenuitem:0,
+    topmenuhover:false,
+
+  },
+
+});
+
+
+
+
+
+
+
+
+
+        </script>
+
+    </body>
+
+</html>
